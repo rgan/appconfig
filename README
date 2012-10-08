@@ -1,0 +1,23 @@
+Setup:
+1. Checkout code.
+2. python virtualenv.py --prompt="(appconfig)" env
+3. Activate virtual env: source env/bin/activate
+3. pip install -r REQUIREMENTS
+4. Install mongodb.
+5. Start mongodb:  mongodb-osx-x86_64-2.2.0/bin/mongod --dbpath data
+6. Start the app: python main.py
+7. nosetests -s functional_tests/app_config_test.py
+
+Usage example:
+1. Create an application:
+    curl -X PUT -d '{"name" : "lms" }' http://localhost:8000/apps
+
+2. Create an environment for the application:
+    curl -X PUT -d '{"name" : "dev" }' http://localhost:8000/apps/lms/environments
+
+3. Add a config setting:
+    curl -X PUT -d '{"key": "adobe_host", "value" : "foobar.com" }'
+              http://localhost:8000/apps/lms/environments/dev/entries
+
+4. Retrieve it:
+    curl http://localhost:8000/application/lms/environments/dev/entries/adobe_host
